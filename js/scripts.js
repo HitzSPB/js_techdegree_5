@@ -46,14 +46,16 @@ data.results.forEach(element => {
     </div>`
 
     // Add event listner to card element
-    profileCardDiv.addEventListener('click', (event) => {
-        ShowModal(parseInt(event.target.closest(".card").id));
-    });
+    // profileCardDiv.addEventListener('click', (event) => {
+    //     event.preventDefault();
+    //     ShowModal(parseInt(event.target.closest(".card").id));
+    // });
 
     // Append our profileCardDiv to the gallary
     document.querySelector('#gallery').appendChild(profileCardDiv);
     count++;
 });
+AddEventListenersToCards();
 }
 
 // Function to pop out the modal
@@ -83,7 +85,18 @@ function ShowModal(currentId)
     </div>`
 
     document.querySelector("#modal-close-btn").addEventListener("click", (event) => 
-    {
-        document.body.removeChild(document.querySelector(".modal-container"));
+    {        
+        event.preventDefault();
+        document.querySelector('body').removeChild(document.querySelector('.modal-container'));
+        AddEventListenersToCards();
     })
+}
+
+// Apperantly when you remove a element it re-creates the structure and we lose our listeners. So we add them on creation but also after closing modal.
+function AddEventListenersToCards() 
+{
+    document.querySelectorAll(".card").forEach(card => 
+        card.addEventListener('click', (event) => {
+            ShowModal(parseInt(event.target.closest(".card").id));
+        }));
 }
