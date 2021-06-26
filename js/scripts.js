@@ -28,7 +28,7 @@ function CheckResponse(data){
 // Creates the elements from the fetch response with the HTML structure from the index.html page
 function PasteDataIntoGallaryElement(data){
     // Clear the current gallary content
-    document.querySelector('#gallery').innerHTML = "";
+    // document.querySelector('#gallery').innerHTML = "";
 let count = 0;
 data.results.forEach(element => {
     // Creates a div that contains a profile card with the information from the fetch api
@@ -44,12 +44,6 @@ data.results.forEach(element => {
         <p class="card-text">${element.email}</p>
         <p class="card-text cap">${element.location.city}, ${element.location.state}</p>
     </div>`
-
-    // Add event listner to card element
-    // profileCardDiv.addEventListener('click', (event) => {
-    //     event.preventDefault();
-    //     ShowModal(parseInt(event.target.closest(".card").id));
-    // });
 
     // Append our profileCardDiv to the gallary
     document.querySelector('#gallery').appendChild(profileCardDiv);
