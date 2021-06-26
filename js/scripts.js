@@ -73,7 +73,7 @@ function ShowModal(currentId)
             <hr>
             <p class="modal-text">${data.cell.replace("-", " ")}</p>
             <p class="modal-text">${data.location.street.number} ${data.location.street.name}, ${data.location.city}, ${data.location.state}, ${data.location.postcode}</p>
-            <p class="modal-text">Birthday: ${new Date(data.dob.date).toLocaleString("en-US").replaceAll("/","-").split(',')[0]}</p>
+            <p class="modal-text">Birthday: ${new Date(data.dob.date).toLocaleString("en-US").split(',')[0]}</p>
         </div>
     </div>
     
@@ -85,13 +85,36 @@ function ShowModal(currentId)
     </div>`
 
     document.querySelector("#modal-close-btn").addEventListener("click", (event) => 
-    {        
-        event.preventDefault();
+    {
         document.querySelector('body').removeChild(document.querySelector('.modal-container'));
         AddEventListenersToCards();
-    })
+    });
+
+    document.querySelector("#modal-prev").addEventListener("click", (event) => 
+    {
+        document.querySelector('body').removeChild(document.querySelector('.modal-container'));
+        ShowOtherModal(currentId - 1)
+        AddEventListenersToCards();
+    });
+    
+    document.querySelector("#modal-next").addEventListener("click", (event) => 
+    {
+        document.querySelector('body').removeChild(document.querySelector('.modal-container'));
+        ShowOtherModal(currentId + 1)
+        AddEventListenersToCards();
+        
+    });
 }
 
+function ShowOtherModal(ModalId){
+    console.log(ModalId)
+    if(ModalId < 12 && ModalId > 0)
+    ShowModal(ModalId)
+    else if(ModalId < 0)
+    ShowModal(11)
+    else
+    ShowModal(0)
+}
 // Apperantly when you remove a element it re-creates the structure and we lose our listeners. So we add them on creation but also after closing modal.
 function AddEventListenersToCards() 
 {
