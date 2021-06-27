@@ -88,14 +88,14 @@ function ShowModal(currentId)
     {
         document.querySelector('body').removeChild(document.querySelector('.modal-container'));
         ShowOtherModal(currentId - 1)
-        AddEventListenersToCards();
+        // AddEventListenersToCards();
     });
     
     document.querySelector("#modal-next").addEventListener("click", (event) => 
     {
         document.querySelector('body').removeChild(document.querySelector('.modal-container'));
         ShowOtherModal(currentId + 1)
-        AddEventListenersToCards();
+        // AddEventListenersToCards();
         
     });
 }
@@ -117,3 +117,21 @@ function AddEventListenersToCards()
             ShowModal(parseInt(event.target.closest(".card").id));
         }));
 }
+
+document.querySelector(".search-submit").addEventListener('click', (event)  => {
+    let searchValueField = document.querySelector(".search-input");
+    let searchValue = searchValueField.value.toLowerCase();
+    let count = 0;
+    fetchedData.results.forEach(element => {
+        if (element.name.first.toLowerCase().includes(searchValue) || element.name.last.toLowerCase().includes(searchValue))
+        {
+            document.querySelector(`[id='${count}']`).style.display = "block"
+        }
+        else
+        {
+            document.querySelector(`[id='${count}']`).style.display = "none"
+        }
+        count++;
+    });
+    searchValueField.value = "";
+});
