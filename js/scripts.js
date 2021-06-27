@@ -100,8 +100,8 @@ function ShowModal(currentId)
     });
 }
 
+// Function that handle what modal to be shown. I made it so that if you press next on last one, you will go to first one. Since in this project we know is 12 max, is what I made it for. Should we support more, we should count total amount of elements instead.
 function ShowOtherModal(ModalId){
-    console.log(ModalId)
     if(ModalId < 12 && ModalId > 0)
     ShowModal(ModalId)
     else if(ModalId < 0)
@@ -118,11 +118,13 @@ function AddEventListenersToCards()
         }));
 }
 
+// Search functionality
 document.querySelector(".search-submit").addEventListener('click', (event)  => {
     let searchValueField = document.querySelector(".search-input");
     let searchValue = searchValueField.value.toLowerCase();
     let count = 0;
     fetchedData.results.forEach(element => {
+        // We check if they includes the value. This way we also show all if we search on a empty value.
         if (element.name.first.toLowerCase().includes(searchValue) || element.name.last.toLowerCase().includes(searchValue))
         {
             document.querySelector(`[id='${count}']`).style.display = "block"
